@@ -1,0 +1,511 @@
+================================================================================
+                    ESTRUCTURA COMPLETA DE PHPMIXBILL
+        Sistema de Gestión de Vouchers para Hotspot MikroTik en PHP
+================================================================================
+
+ESTRUCTURA RAÍZ DEL PROYECTO
+================================================================================
+
+phpmixbill/
+│
+├── admin/                          # Módulo completo de administración
+├── system/                         # Sistema principal y núcleo de la aplicación
+├── ui/                             # Interfaz de usuario y temas visuales
+├── pages/                          # Páginas estáticas editables
+├── docs/                           # Documentación del proyecto
+├── Sample/                         # Ejemplos de código y configuración
+│
+├── index.php                       # Punto de entrada principal de la aplicación
+├── README.md                       # Documentación general del proyecto
+├── LICENSE                         # Licencia GNU GPL v2
+├── .gitignore                      # Exclusiones para Git
+└── _config.yml                     # Configuración YAML del proyecto
+
+
+================================================================================
+DIRECTORIO: /admin/ - MÓDULO DE ADMINISTRACIÓN
+================================================================================
+
+admin/
+│
+├── pages/                          # Páginas y vistas del panel administrativo
+│   ├── dashboard.php               # Página principal del admin
+│   ├── voucher.php                 # Gestión de vouchers
+│   ├── user.php                    # Gestión de usuarios
+│   ├── plan.php                    # Configuración de planes de servicio
+│   ├── bandwidth.php               # Gestión de planes de ancho de banda
+│   ├── router.php                  # Configuración de routers MikroTik
+│   ├── pool.php                    # Gestión de pools de IP
+│   ├── settings.php                # Configuración general del sistema
+│   ├── administrator.php           # Gestión de administradores
+│   ├── payment_gateway.php         # Configuración de pasarelas de pago
+│   ├── language.php                # Gestión de idiomas
+│   ├── activity_log.php            # Registro de actividades
+│   ├── reports.php                 # Reportes y estadísticas
+│   ├── transaction.php             # Registro de transacciones
+│   ├── backup.php                  # Herramientas de respaldo
+│   └── [otras páginas administrativas]
+│
+├── system/                         # Sistema interno del módulo admin
+│   ├── controllers/                # Controladores del admin
+│   ├── models/                     # Modelos específicos del admin
+│   └── [componentes internos]
+│
+├── ui/                             # Interfaz del panel administrativo
+│   ├── templates/                  # Plantillas HTML del admin
+│   └── styles/                     # Estilos CSS personalizados
+│
+└── docs/                           # Documentación del módulo admin
+    ├── installation.md
+    ├── configuration.md
+    └── api_documentation.md
+
+
+================================================================================
+DIRECTORIO: /system/ - SISTEMA PRINCIPAL Y NÚCLEO
+================================================================================
+
+system/
+│
+├── boot.php                        # Arranque e inicialización del sistema
+│                                   # Carga dependencias y configuración inicial
+│
+├── orm.php                         # Object-Relational Mapping (ORM)
+│                                   # Manejo de base de datos y modelos
+│
+├── config.sample.php               # Archivo de configuración de ejemplo
+│                                   # DEBE ser renombrado a config.php
+│
+├── config.php                      # Configuración principal (después de renombrar)
+│                                   # Contiene credenciales de BD y parámetros
+│
+├── functions.php                   # Funciones globales y utilidades
+│                                   # Funciones comunes usadas en toda la app
+│
+├── cron.php                        # Script para tareas programadas (cron jobs)
+│                                   # Ejecutar cada 4 horas para sincronizar
+│
+├── controllers/                    # Controladores de la aplicación (MVC)
+│   ├── admin.php                   # Controlador del módulo admin
+│   ├── user.php                    # Controlador de usuarios
+│   ├── voucher.php                 # Controlador de vouchers
+│   ├── plan.php                    # Controlador de planes
+│   ├── bandwidth.php               # Controlador de ancho de banda
+│   ├── router.php                  # Controlador de routers
+│   ├── settings.php                # Controlador de configuración
+│   ├── payment.php                 # Controlador de pagos
+│   ├── transaction.php             # Controlador de transacciones
+│   ├── authentication.php          # Controlador de autenticación
+│   ├── language.php                # Controlador de idiomas
+│   ├── backup.php                  # Controlador de respaldos
+│   └── [otros controladores según funcionalidad]
+│
+├── models/                         # Modelos de datos (MVC)
+│   ├── User.php                    # Modelo de usuarios
+│   ├── Voucher.php                 # Modelo de vouchers
+│   ├── Plan.php                    # Modelo de planes
+│   ├── Router.php                  # Modelo de routers
+│   ├── Transaction.php             # Modelo de transacciones
+│   ├── PaymentGateway.php          # Modelo de pasarelas de pago
+│   └── [otros modelos necesarios]
+│
+├── lan/                            # Archivos de idiomas (Localización/i18n)
+│   │
+│   ├── english/                    # Idioma: Inglés
+│   │   ├── common.lan.php          # Palabras clave comunes en inglés
+│   │   ├── voucher.lan.php         # Vocabulario específico de vouchers
+│   │   ├── user.lan.php            # Vocabulario de usuarios
+│   │   ├── plan.lan.php            # Vocabulario de planes
+│   │   ├── admin.lan.php           # Vocabulario del admin
+│   │   ├── payment.lan.php         # Vocabulario de pagos
+│   │   └── [otros archivos de idioma]
+│   │
+│   ├── indonesian/                 # Idioma: Indonesio
+│   │   ├── common.lan.php
+│   │   ├── voucher.lan.php
+│   │   ├── [archivos para indonesio]
+│   │   └── ...
+│   │
+│   └── [otros idiomas disponibles]
+│       ├── spanish/                # Ejemplo: Español
+│       ├── french/                 # Ejemplo: Francés
+│       ├── portuguese/             # Ejemplo: Portugués
+│       └── ...
+│
+├── install/                        # Carpeta de instalación
+│   │
+│   ├── phpmixbill.sql             # Script SQL de base de datos principal
+│   │                               # Contiene todas las tablas necesarias:
+│   │                               # - users (usuarios)
+│   │                               # - vouchers (vouchers)
+│   │                               # - plans (planes de servicio)
+│   │                               # - routers (configuración routers)
+│   │                               # - bandwidth (planes de ancho de banda)
+│   │                               # - transactions (transacciones de pago)
+│   │                               # - admins (administradores)
+│   │                               # - settings (configuraciones globales)
+│   │                               # - activity_log (registro de actividades)
+│   │                               # - payment_gateways (pasarelas de pago)
+│   │                               # - [otras tablas]
+│   │
+│   ├── radius.sql                 # Script SQL para base de datos RADIUS
+│   │                               # Opcional: para integración con RADIUS
+│   │                               # Contiene tablas para autenticación RADIUS
+│   │
+│   ├── step1.php                  # Paso 1: Verificación de requisitos
+│   ├── step2.php                  # Paso 2: Configuración de base de datos
+│   ├── step3.php                  # Paso 3: Importación de base de datos
+│   ├── step4.php                  # Paso 4: Finalización de instalación
+│   │
+│   └── [scripts adicionales de setup]
+│
+├── autoload/                       # Cargador automático de clases
+│   │
+│   ├── PEAR2/                      # Librería PEAR2 para RouterOS API
+│   │   ├── Autoload.php            # Autocargador de PEAR2
+│   │   ├── Cache/                  # Caché de PEAR2
+│   │   │   ├── CacheFactory.php
+│   │   │   └── [otros archivos cache]
+│   │   │
+│   │   └── Net/                    # Componente de red (RouterOS)
+│   │       ├── RouterOS/           # Librería para comunicación RouterOS
+│   │       │   ├── Query.php       # Clase para queries RouterOS
+│   │       │   ├── Response.php    # Manejo de respuestas
+│   │       │   ├── Connector.php   # Conexión a RouterOS
+│   │       │   └── [otros componentes]
+│   │       └── [otros archivos Net]
+│   │
+│   └── Smarty/                     # Motor de plantillas Smarty
+│       ├── Smarty.class.php        # Clase principal Smarty
+│       ├── plugins/                # Plugins de Smarty
+│       │   ├── modifier.php        # Modificadores
+│       │   ├── function.php        # Funciones personalizadas
+│       │   └── [otros plugins]
+│       ├── templates/              # Plantillas compiladas
+│       └── [otros componentes Smarty]
+│
+├── cache/                          # Directorio de caché
+│   ├── (creado dinámicamente)
+│   └── [archivos de caché temporal]
+│
+└── logs/                           # Directorio de logs
+    ├── (creado dinámicamente)
+    ├── errors.log                  # Registro de errores
+    ├── system.log                  # Registro del sistema
+    └── database.log                # Registro de base de datos
+
+
+================================================================================
+DIRECTORIO: /ui/ - INTERFAZ DE USUARIO Y TEMAS
+================================================================================
+
+ui/
+│
+├── compiled/                       # Carpeta de temas compilados
+│   │                               # IMPORTANTE: Requiere permisos 755 (rwxr-xr-x)
+│   │                               # Aquí se guardan los temas compilados
+│   │
+│   └── [archivos generados automáticamente]
+│       ├── cache/
+│       ├── resources/
+│       └── [otros compilados]
+│
+├── templates/                      # Plantillas de la interfaz
+│   │
+│   ├── default/                    # Tema predeterminado
+│   │   │
+│   │   ├── admin/                  # Plantillas para panel admin
+│   │   │   ├── dashboard.tpl       # Plantilla dashboard admin
+│   │   │   ├── voucher.tpl         # Plantilla de vouchers
+│   │   │   ├── user.tpl            # Plantilla de usuarios
+│   │   │   ├── plan.tpl            # Plantilla de planes
+│   │   │   ├── router.tpl          # Plantilla de routers
+│   │   │   ├── settings.tpl        # Plantilla de configuración
+│   │   │   ├── transaction.tpl     # Plantilla de transacciones
+│   │   │   ├── reports.tpl         # Plantilla de reportes
+│   │   │   ├── administrator.tpl   # Plantilla de administradores
+│   │   │   ├── payment_gateway.tpl # Plantilla de pasarelas
+│   │   │   ├── activity_log.tpl    # Plantilla de registro
+│   │   │   ├── [otras plantillas admin]
+│   │   │   └── layout.tpl          # Layout base del admin
+│   │   │
+│   │   ├── user/                   # Plantillas para panel de usuarios
+│   │   │   ├── dashboard.tpl       # Dashboard del usuario
+│   │   │   ├── profile.tpl         # Perfil de usuario
+│   │   │   ├── package.tpl         # Paquetes disponibles
+│   │   │   ├── transaction.tpl     # Transacciones del usuario
+│   │   │   ├── payment.tpl         # Método de pago
+│   │   │   ├── voucher_activation.tpl # Activación de voucher
+│   │   │   ├── message.tpl         # Mensajes privados
+│   │   │   ├── [otras plantillas usuario]
+│   │   │   └── layout.tpl          # Layout base del usuario
+│   │   │
+│   │   ├── public/                 # Plantillas públicas (login, registro)
+│   │   │   ├── login.tpl           # Página de login
+│   │   │   ├── register.tpl        # Página de registro
+│   │   │   ├── password_reset.tpl  # Recuperar contraseña
+│   │   │   ├── announcement.tpl    # Anuncios públicos
+│   │   │   ├── home.tpl            # Página de inicio
+│   │   │   └── [otras públicas]
+│   │   │
+│   │   ├── email/                  # Plantillas de email
+│   │   │   ├── welcome.tpl         # Bienvenida
+│   │   │   ├── payment_confirm.tpl # Confirmación de pago
+│   │   │   ├── invoice.tpl         # Factura
+│   │   │   ├── [otras emails]
+│   │   │   └── layout.tpl          # Layout email
+│   │   │
+│   │   ├── components/             # Componentes reutilizables
+│   │   │   ├── header.tpl
+│   │   │   ├── footer.tpl
+│   │   │   ├── sidebar.tpl
+│   │   │   ├── pagination.tpl
+│   │   │   ├── alert.tpl
+│   │   │   ├── modal.tpl
+│   │   │   └── [otros componentes]
+│   │   │
+│   │   ├── css/                    # Estilos CSS del tema
+│   │   │   ├── style.css           # Estilos principales
+│   │   │   ├── admin.css           # Estilos del admin
+│   │   │   ├── responsive.css      # Estilos responsivos
+│   │   │   ├── bootstrap.css       # Framework Bootstrap (si se usa)
+│   │   │   └── [otros estilos]
+│   │   │
+│   │   ├── js/                     # JavaScript del tema
+│   │   │   ├── main.js             # Script principal
+│   │   │   ├── jquery.js           # jQuery
+│   │   │   ├── bootstrap.js        # Bootstrap JS
+│   │   │   ├── form_validation.js  # Validación de formularios
+│   │   │   ├── admin.js            # Scripts del admin
+│   │   │   └── [otros scripts]
+│   │   │
+│   │   ├── images/                 # Imágenes del tema
+│   │   │   ├── logo.png
+│   │   │   ├── background.jpg
+│   │   │   ├── icons/
+│   │   │   └── [otras imágenes]
+│   │   │
+│   │   └── layout.tpl              # Layout principal del tema
+│   │
+│   ├── bootstrap/                  # Tema Bootstrap (alternativo)
+│   │   ├── admin/                  # Similar a default
+│   │   ├── user/
+│   │   ├── public/
+│   │   ├── components/
+│   │   ├── css/
+│   │   ├── js/
+│   │   ├── images/
+│   │   └── layout.tpl
+│   │
+│   └── [otros temas adicionales]
+│       └── [estructura similar a default]
+│
+├── assets/                         # Recursos globales (compartidos)
+│   ├── css/
+│   │   ├── common.css
+│   │   ├── normalize.css
+│   │   └── [otros estilos globales]
+│   │
+│   ├── js/
+│   │   ├── jquery-3.x.x.min.js
+│   │   ├── bootstrap.min.js
+│   │   ├── common.js
+│   │   └── [librerías compartidas]
+│   │
+│   ├── images/
+│   │   ├── placeholder.png
+│   │   ├── favicon.ico
+│   │   └── [imágenes comunes]
+│   │
+│   ├── fonts/
+│   │   ├── fontawesome/
+│   │   ├── bootstrap-icons/
+│   │   └── [otras fuentes]
+│   │
+│   └── plugins/
+│       ├── datepicker/
+│       ├── datatables/
+│       ├── wysiwyg/
+│       └── [otros plugins]
+│
+└── [archivos de configuración de UI]
+    ├── config.php                  # Configuración de temas
+    └── settings.php                # Configuración de interfaz
+
+
+================================================================================
+DIRECTORIO: /pages/ - PÁGINAS ESTÁTICAS EDITABLES
+================================================================================
+
+pages/
+│
+├── home.html                       # Página de inicio/bienvenida
+├── about.html                      # Página "Acerca de"
+├── faq.html                        # Preguntas frecuentes (FAQ)
+├── terms.html                      # Términos y condiciones
+├── privacy.html                    # Política de privacidad
+├── contact.html                    # Página de contacto
+├── help.html                       # Página de ayuda
+│
+└── [otras páginas estáticas]
+    ├── pricing.html
+    ├── features.html
+    ├── testimonials.html
+    └── ...
+
+Nota: Estas páginas pueden ser editadas desde el panel admin
+Requiere permisos de escritura (755) en el directorio
+
+
+================================================================================
+DIRECTORIO: /docs/ - DOCUMENTACIÓN
+================================================================================
+
+docs/
+│
+├── README.md                       # Documentación principal
+├── INSTALLATION.md                 # Guía de instalación
+├── CONFIGURATION.md                # Guía de configuración
+├── USER_GUIDE.md                   # Guía del usuario
+├── ADMIN_GUIDE.md                  # Guía del administrador
+├── API_DOCUMENTATION.md            # Documentación de API
+├── DATABASE_STRUCTURE.md           # Estructura de base de datos
+├── TROUBLESHOOTING.md              # Solución de problemas
+├── CHANGELOG.md                    # Historial de cambios
+│
+├── development/                    # Documentación de desarrollo
+│   ├── coding_standards.md
+│   ├── architecture.md
+│   ├── plugin_development.md
+│   └── [guías de desarrollo]
+│
+└── api/                            # Documentación de API
+    ├── authentication.md
+    ├── endpoints.md
+    ├── errors.md
+    └── examples.md
+
+
+================================================================================
+DIRECTORIO: /Sample/ - EJEMPLOS Y MUESTRAS
+================================================================================
+
+Sample/
+│
+├── config.example.php              # Ejemplo de configuración
+├── router_config.example.php       # Ejemplo de config de router
+├── custom_theme_example/           # Ejemplo de tema personalizado
+│   ├── templates/
+│   ├── css/
+│   └── js/
+│
+├── plugin_example/                 # Ejemplo de desarrollo de plugin
+│   ├── index.php
+│   ├── config.php
+│   └── [estructura plugin]
+│
+├── api_client_example.php          # Ejemplo de cliente API
+├── custom_payment_gateway.php      # Ejemplo de pasarela de pago
+│
+└── [otros ejemplos útiles]
+
+
+================================================================================
+RESUMEN DE PERMISOS REQUERIDOS POST-INSTALACIÓN
+================================================================================
+
+Después de instalar, asegurar estos permisos:
+
+ui/compiled/                         → 755 (rwxr-xr-x)  [CRÍTICO]
+system/config.php                    → 644 (rw-r--r--)
+pages/                              → 755 (rwxr-xr-x)  [para editar]
+system/cache/                       → 755 (rwxr-xr-x)
+system/logs/                        → 755 (rwxr-xr-x)
+system/install/                     → Eliminar después de instalar
+
+
+================================================================================
+ESTRUCTURA DE CONFIGURACIÓN Y FLUJO
+================================================================================
+
+FLUJO DE INICIALIZACIÓN:
+1. index.php (punto de entrada)
+2. system/boot.php (carga configuración y dependencias)
+3. system/config.php (credenciales y parámetros)
+4. system/orm.php (conexión a BD)
+5. system/functions.php (funciones globales)
+6. Controladores correspondientes
+7. Plantillas de temas (Smarty)
+
+
+PATRÓN ARQUITECTÓNICO: MVC
+- Models: system/models/
+- Views: ui/templates/
+- Controllers: system/controllers/
+
+
+LOCALIZACIÓN/IDIOMAS:
+Cada módulo puede tener su propio archivo de idioma
+Los archivos están en: system/lan/{idioma}/
+
+
+BASE DE DATOS:
+- Archivo principal: system/install/phpmixbill.sql
+- Archivo RADIUS (opcional): system/install/radius.sql
+- Configuración conexión: system/config.php
+
+
+================================================================================
+ARCHIVOS IMPORTANTES A PROTEGER
+================================================================================
+
+CRÍTICOS (Nunca exponer):
+- system/config.php                 (Credenciales de BD)
+
+IMPORTANTE (Eliminar después de instalar):
+- system/install/                   (Puede usarse para ataques)
+
+NECESITA PERMISOS:
+- ui/compiled/                      (Compilación de temas)
+- pages/                            (Páginas editables)
+- system/cache/
+- system/logs/
+
+
+================================================================================
+NOTAS IMPORTANTES
+================================================================================
+
+1. INSTALACIÓN:
+   - Renombrar system/config.sample.php a system/config.php
+   - Editar credenciales de base de datos
+   - Importar SQL desde system/install/
+   - Eliminar carpeta system/install/ por seguridad
+
+2. TEMAS:
+   - ui/compiled/ DEBE tener permisos 755
+   - Smarty compilará plantillas automáticamente
+   - Los temas deben estar en ui/templates/{nombre_tema}/
+
+3. CRON JOBS:
+   - Ejecutar: system/cron.php
+   - Frecuencia recomendada: cada 4 horas
+   - Sincroniza datos con MikroTik
+
+4. INTEGRACIÓN MIKROTIK:
+   - Requiere PEAR2 RouterOS API (incluida)
+   - Configurar conexión en system/config.php
+   - Soporta múltiples routers
+
+5. RESPALDOS:
+   - Realizar respaldos regulares de base de datos
+   - La BD debe respaldar ambas: phpmixbill y radius
+
+6. ACTUALIZACIONES:
+   - Revisar CHANGELOG.md
+   - Hacer respaldo antes de actualizar
+   - Ejecutar scripts SQL nuevos si aplican
+
+================================================================================
+                              FIN DE ESTRUCTURA
+================================================================================
